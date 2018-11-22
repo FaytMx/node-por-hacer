@@ -29,9 +29,17 @@ const crear = (descripcion) => {
     return porHacer;
 }
 
-const getListado = () => {
+const getListado = (completado = true) => {
     cargarDB();
-    return listadoPorHacer;
+    let nuevoListado = listadoPorHacer.filter(tarea => tarea.completado === completado);
+
+    if (listadoPorHacer.length === nuevoListado.length) {
+        return listadoPorHacer;
+    } else {
+        listadoPorHacer = nuevoListado;
+        return listadoPorHacer;
+    }
+
 }
 
 const actualizar = (descripcion, completado = true) => {
@@ -49,7 +57,7 @@ const actualizar = (descripcion, completado = true) => {
 const borrar = (descripcion) => {
     cargarDB();
 
-    let index = listadoPorHacer.findIndex(tarea => tarea.descripcion === descripcion);
+    //let index = listadoPorHacer.findIndex(tarea => tarea.descripcion === descripcion);
 
     let nuevoListado = listadoPorHacer.filter(tarea => tarea.descripcion !== descripcion);
 
